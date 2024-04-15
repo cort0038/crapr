@@ -1,4 +1,4 @@
 
 export default function Offer() {
-    return <h1> Offer </h1>
+    return <h1> Offers </h1>
 }
