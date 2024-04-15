@@ -2,7 +2,7 @@
 export default function Wiped () {
     return (
         <div>
-        <h1>WIPED</h1>
+        <h1>Wiped</h1>
         </div>
     );
 }
