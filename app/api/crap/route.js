@@ -1,39 +1,85 @@
+import {handleForm} from "@/app/actions"
+
 export async function GET(request) {
 	let token = request.nextUrl.searchParams.get("token")
 	let keyword = request.nextUrl.searchParams.get("keyword")
-	let url = `http://localhost:4000/api/crap?keyword=${keyword}`
+	let url = `${process.env.API_URL}?keyword=${keyword}`
+	try {
+		const response = await fetch(url, {
+			method: "GET",
+			headers: {
+				"Accept": "application/json",
+				"Authorization": `Bearer ${token}`
+			},
+			next: {revalidate: 60}
+		})
 
-	// console.log(request)
-
-	const response = await fetch(url, {
-		method: "GET",
-		headers: {
-			"Accept": "application/json",
-			"Authorization": `Bearer ${token}`
-		},
-		next: {revalidate: 60}
-	})
-	return response
+		if (response.status === 200) {
+			let data = await response.json()
+			return new Response(JSON.stringify(data), {
+				status: 200,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+		} else if (response.status === 401) {
+			return new Response(JSON.stringify({error: "Unauthorized. Please, log in."}), {
+				status: 401,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+		}
+	} catch (error) {
+		return new Response(JSON.stringify({error: "Something went wrong"}), {
+			status: 500,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+	}
 }
 
 export async function POST(request) {
+	let url = `${process.env.API_URL}`
 	let token = request.nextUrl.searchParams.get("token")
-	// let keyword = request.nextUrl.searchParams.get("keyword")
-	let url = "http://localhost:4000/api/crap"
 
-	const lat = request.geo.latitude ?? process.env.lat
-	const lon = request.geo.longitude ?? process.env.lon
+	try {
+		const response = await fetch(url, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${token}`
+			},
+			body: JSON.stringify({
+				"title": "Test",
+				"description": "Test",
+				"status": "Available"
+			})
+		})
 
-	// console.log(request)
-
-	const response = await fetch(url, {
-		method: "POST",
-		headers: {
-			"Accept": "application/json",
-			"Authorization": `Bearer ${token}`
-		},
-		body: FormData({lat, lon}),
-		next: {revalidate: 60}
-	})
-	return response
+		if (response.status === 201) {
+			let data = await response.json()
+			return new Response(JSON.stringify(data), {
+				status: 201,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+		} else if (response.status === 401) {
+			return new Response(JSON.stringify({error: "Unauthorized. Please, log in."}), {
+				status: 401,
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+		}
+	} catch (error) {
+		return new Response(JSON.stringify({error: "Something went wrong"}), {
+			status: 500,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+	}
 }

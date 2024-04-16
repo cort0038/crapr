@@ -16,6 +16,12 @@ export async function login(response, token) {
 	})
 }
 
+export async function handleForm(formData) {
+	"use server"
+	// console.log("ACTIONS", formData)
+	// const input = encodeURIComponent(formData.get("title"))
+}
+
 export async function logout() {
 	//clear the cookie
 	await cookies().delete("token")
