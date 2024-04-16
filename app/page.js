@@ -1,10 +1,10 @@
-import {getSession} from "./actions"
-import {logout} from "./actions"
+import {getSession, logout} from "./actions"
 import {redirect} from "next/navigation"
+import SearchBar from "./components/SearchBar"
 
 export default async function Home() {
 	const redirectUrl = "http://localhost:3000/login"
-	const url = `https://crapr-api.onrender.com/auth/google?redirect_url=${redirectUrl}`
+	const url = `http://localhost:4000/auth/google?redirect_url=${redirectUrl}`
 	let token = await getSession()
 
 	return (
@@ -23,6 +23,7 @@ export default async function Home() {
 
 			{token?.value && (
 				<div>
+					<SearchBar />
 					<form
 						action={async () => {
 							"use server"
