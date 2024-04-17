@@ -2,7 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
 
+.container {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 1.5rem;
+	padding-left: 1.5rem;
+}
+
+@media (min-width: 25em) {
+	.container {
+		max-width: 40em;
+	}
+}
+
+@media (min-width: 45em) {
+	.container {
+		max-width: 45em;
+	}
+}
+
+@media (min-width: 60em) {
+	.container {
+		max-width: 60em;
+	}
 }
 
