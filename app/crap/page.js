@@ -1,4 +1,6 @@
 import {getSession} from "../actions"
+import Image from "next/image"
+import SearchBar from "../components/SearchBar"
 
 export default async function Crap({params, searchParams}) {
 	let session = await getSession()
@@ -16,9 +18,19 @@ export default async function Crap({params, searchParams}) {
 		let data = await response.json()
 		if (data.length === 0) {
 			return (
-				<div>
-					<h1>No data found</h1>
-				</div>
+				<>
+					<SearchBar />
+
+					<div className="flex flex-col items-center justify-center pt-16">
+						<div className="flex gap-1">
+							<p className="font-bold text-xl text-red-600 text-center">No items found for</p>
+							<p className="text-xl text-red-600 text-center font-bold italic">&quot;{keyword}&quot;</p>
+						</div>
+						<p className="text-center py-3">If you think this is a mistake, please, try again later.</p>
+
+						<Image src="/404-page-not-found.svg" alt="404 Error Image" width={500} height={500} className="py-4" />
+					</div>
+				</>
 			)
 		} else {
 			return (
@@ -29,7 +41,7 @@ export default async function Crap({params, searchParams}) {
 			)
 		}
 	} else if (response.status === 401) {
-		console.warn("Unauthorized. Please, log in.")
+		console.log(JSON.stringify({ERROR: "Unauthorized. Please, log in."}))
 		return (
 			<div>
 				<h1>Unauthorized</h1>
@@ -37,7 +49,7 @@ export default async function Crap({params, searchParams}) {
 			</div>
 		)
 	} else {
-		console.error("Something went wrong")
+		console.error(JSON.stringify({ERROR: "Something went wrong"}))
 		return (
 			<div>
 				<h1>Something went wrong</h1>
