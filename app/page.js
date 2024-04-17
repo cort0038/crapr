@@ -1,22 +1,24 @@
 import {getSession, logout} from "./actions"
 import {redirect} from "next/navigation"
 import SearchBar from "./components/SearchBar"
+import GoogleSignInButton from "./components/GoogleSignInButton"
 
 export default async function Home() {
-	const redirectUrl = "http://localhost:3000/login"
-	const url = `http://localhost:4000/auth/google?redirect_url=${redirectUrl}`
+	const redirectUrl = `${process.env.ROOT_URL}/login`
+	const url = `${process.env.GOOGLE_CALLBACK_URL}=${redirectUrl}`
+
 	let token = await getSession()
 
 	return (
 		<div>
 			{!token?.value && (
 				<div>
-					<form
+					<form className="flex items-center justify-center"
 						action={async () => {
 							"use server"
 							redirect(url)
 						}}>
-						<button>Sign in</button>
+						<GoogleSignInButton />
 					</form>
 				</div>
 			)}
