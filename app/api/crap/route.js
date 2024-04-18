@@ -1,3 +1,5 @@
+
+
 export async function GET(request) {
 	try {
 		const token = request.nextUrl.searchParams.get("token")
@@ -5,12 +7,13 @@ export async function GET(request) {
 		const lat = request.geo.latitude ?? process.env.LAT
 		const long = request.geo.longitude ?? process.env.LONG
 		const distance = request.nextUrl.searchParams.get("distance")
-
-		console.log(lat)
-		console.log(long)
+		const {city} = geolocation(request)
 
 		let url = `${process.env.API_URL}/api/crap?keyword=${keyword}&distance=${distance}&lat=${lat}&long=${long}`
 
+		console.log(long)
+		console.log(lat)
+		
 		const response = await fetch(url, {
 			method: "GET",
 			headers: {
@@ -22,7 +25,7 @@ export async function GET(request) {
 
 		if (response.status === 200) {
 			let data = await response.json()
-			return new Response(JSON.stringify(data), {
+			return new Response(JSON.stringify(data, {city}), {
 				status: 200,
 				headers: {
 					"Content-Type": "application/json"
