@@ -41,6 +41,7 @@ export default async function Crap({params, searchParams}) {
 					)}
 
 					{data && data.length > 0 && (
+
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 							{data.map((item, index) => (
 								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
@@ -59,6 +60,20 @@ export default async function Crap({params, searchParams}) {
 										<p className="italic">{item.description}</p>
 										<p>{item.owner.name}</p>
 									</div>
+
+						<div>
+							{data.map((item, index) => (
+								<div key={index}>
+									<h2>{item.title}</h2>
+									<p>{item.description}</p>
+									{item.images.map((imageUrl, imageIndex) => (
+										<div key={imageIndex}>
+											<Image src={imageUrl} alt={item.description} width={500} height={500} />
+										</div>
+									))}
+									<p>{item.status}</p>
+									<p>{item.owner.name}</p>
+
 								</div>
 							))}
 						</div>

@@ -18,13 +18,15 @@ export async function login(response, token) {
 export async function getFormData(formData) {
 	"use server"
 
+	const title = formData.get("title")
+	const description = formData.get("description")
+	const image = formData.get("images")
+
 	const payload = new FormData()
 
-	formData.forEach((value, key) => {
-		if (key !== "button" && !key.startsWith("$ACTION_ID")) {
-			payload.append(key, value)
-		}
-	})
+	payload.append("title", title)
+	payload.append("description", description)
+	payload.append("images", image)
 
 	let session = await getSession()
 	let token = session?.value
