@@ -8,10 +8,10 @@ export async function GET(request) {
 		const long = request.geo.longitude ?? process.env.LONG
 		const distance = request.nextUrl.searchParams.get("distance")
 
-		let url = `${process.env.API_URL}/api/crap?keyword=${keyword}&distance=${distance}&lat=${lat}&long=${long}`
+		const test = request.geo.latitude ? request.geo.latitude : process.env.LAT
+		console.log(test)
 
-		console.log(long)
-		console.log(lat)
+		let url = `${process.env.API_URL}/api/crap?keyword=${keyword}&distance=${distance}&lat=${lat}&long=${long}`
 		
 		const response = await fetch(url, {
 			method: "GET",
