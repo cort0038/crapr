@@ -43,12 +43,6 @@ export async function GET(request) {
 
 export async function POST(request) {
 	let formData = await request.formData()
-	let form = {}
-	for (const [key, value] of formData.entries()) {
-		if (!key.startsWith("$ACTION_ID")) {
-			form[key] = value
-		}
-	}
 
 	let url = `${process.env.API_URL}/api/crap`
 	let token = request.nextUrl.searchParams.get("token")
@@ -57,13 +51,9 @@ export async function POST(request) {
 		const response = await fetch(url, {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
 				"Authorization": `Bearer ${token}`
-			}
-			// body: JSON.stringify(formData)
-			// body: JSON.stringify(form)
-			// body: form
-			// body: formData
+			},
+			body: formData
 		})
 
 		if (response.status === 201) {
