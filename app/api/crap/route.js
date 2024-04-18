@@ -7,7 +7,6 @@ export async function GET(request) {
 		const lat = request.geo.latitude ?? process.env.LAT
 		const long = request.geo.longitude ?? process.env.LONG
 		const distance = request.nextUrl.searchParams.get("distance")
-		const {city} = geolocation(request)
 
 		let url = `${process.env.API_URL}/api/crap?keyword=${keyword}&distance=${distance}&lat=${lat}&long=${long}`
 
@@ -25,7 +24,7 @@ export async function GET(request) {
 
 		if (response.status === 200) {
 			let data = await response.json()
-			return new Response(JSON.stringify(data, {city}), {
+			return new Response(JSON.stringify(data), {
 				status: 200,
 				headers: {
 					"Content-Type": "application/json"
