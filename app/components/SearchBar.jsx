@@ -16,9 +16,9 @@ export default function SearchBar() {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="flex md:flex-row sm:flex-row lg:flex-row flex-col gap-12 lg:gap-8 p-2 items-center justify-center mt-12 mb-4 rounded-lg text-black">
+			className="flex md:flex-row sm:flex-row lg:flex-row flex-col p-2 items-center justify-center mt-8 mb-4 rounded-lg text-black">
 			<label htmlFor="search" className="font-semibold"></label>
-			<div className="flex items-center border-zinc-500 px-4 w-1/2 border rounded-full py-2 justify-center gap-4">
+			<div className="flex items-center border-zinc-500 px-4 w-full md:w-1/2 border rounded-full py-2 justify-center gap-4">
 				<input
 					className="text-lg text-center  focus:outline-none placeholder-gray-500 focus:placeholder-opacity-0 w-full"
 					type="text"
