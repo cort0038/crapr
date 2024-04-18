@@ -42,11 +42,11 @@ export default async function NavBar() {
 				</div>
 			)}
 			{!token?.value && (
-				<div className="flex items-center justify-between w-full px-48 pt-8">
+				<div className="flex items-center justify-between flex-col md:flex-row w-full pt-8 px-3 md:px-12">
 					<a className="font-bold text-3xl" href="/">
 						CRAP
 					</a>
-					<ul className="flex gap-4 py-2 justify-between font-bold text-xl">
+					<ul className="flex gap-4 py-2 justify-between font-bold md:text-lg items-center">
 						<li className="hover:text-green-700 transition-all">
 							<Link href="/">Home</Link>
 						</li>
