@@ -1,9 +1,16 @@
 export async function GET(request) {
-	let token = request.nextUrl.searchParams.get("token")
-	let keyword = request.nextUrl.searchParams.get("keyword")
-	let url = `${process.env.API_URL}/api/crap?keyword=${keyword}`
-
 	try {
+		const token = request.nextUrl.searchParams.get("token")
+		const keyword = request.nextUrl.searchParams.get("keyword")
+		const lat = request.geo.latitude ?? process.env.LAT
+		const long = request.geo.longitude ?? process.env.LONG
+		const distance = request.nextUrl.searchParams.get("distance")
+
+		console.log(lat)
+		console.log(long)
+
+		let url = `${process.env.API_URL}/api/crap?keyword=${keyword}&distance=${distance}&lat=${lat}&long=${long}`
+
 		const response = await fetch(url, {
 			method: "GET",
 			headers: {

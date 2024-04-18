@@ -5,11 +5,19 @@ import {useRouter} from "next/navigation"
 
 export default function SearchBar() {
 	const [search, setSearch] = useState("")
+	const [distance, setDistance] = useState("")
 	const router = useRouter()
+
+	function selectDistance(e) {
+		setDistance(e.target.value)
+	}
+
+	console.log(search)
+	console.log(distance)
 
 	const handleSubmit = ev => {
 		ev.preventDefault()
-		router.push(`/crap?keyword=${search}`)
+		router.push(`/crap?keyword=${search}&distance=${distance}`)
 	}
 
 	return (
@@ -33,6 +41,43 @@ export default function SearchBar() {
 					required
 				/>
 				<FaSearch className="text-xl cursor-pointer" onClick={handleSubmit} />
+			</div>
+
+			<div className="flex gap-5 items-center justify-center mt-5">
+				<p className="font-bold">Within</p>
+				<div className="flex gap-2">
+					<input
+						name="distance"
+						type="radio"
+						checked={distance === "100000"}
+						value="100000"
+						onChange={selectDistance}
+						className="pt-4 justify-center items-center flex border-2 border-black"
+					/>
+					<label>10km</label>
+				</div>
+				<div className="flex gap-2">
+					<input
+						name="distance"
+						type="radio"
+						checked={distance === "300000"}
+						value="300000"
+						onChange={selectDistance}
+						className="pt-4 justify-center items-center flex border-2 border-black"
+					/>
+					<label>30km</label>
+				</div>
+				<div className="flex gap-2">
+					<input
+						name="distance"
+						type="radio"
+						checked={distance === "700000"}
+						value="700000"
+						onChange={selectDistance}
+						className="pt-4 justify-center items-center flex border-2 border-black"
+					/>
+					<label>70km</label>
+				</div>
 			</div>
 		</form>
 	)
