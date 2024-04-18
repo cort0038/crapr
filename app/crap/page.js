@@ -2,27 +2,27 @@ import {getSession} from "../actions"
 import Image from "next/image"
 import SearchBar from "../components/SearchBar"
 
-export default async function Crap({params, searchParams}) {
-	let session = await getSession()
-	let token = session?.value
-	let keyword = searchParams.keyword
-
+export default async function Crap({searchParams}) {
 	try {
+		const session = await getSession()
+		const token = session?.value
+		const keyword = searchParams.keyword
+
 		const response = await fetch(`${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}`, {
 			method: "GET",
 			headers: {
-				"Accept": "application/json"
+				Accept: "application/json"
 			}
 		})
 
-		if (response.status === 200) {
-			let data = await response.json()
+		if (response.ok) {
+			const data = await response.json()
 
 			return (
 				<>
 					<SearchBar />
 
-					{data && data.length === 0 && (
+					{data.length === 0 && (
 						<div className="flex flex-col items-center justify-center pt-16">
 							<div className="flex gap-1">
 								<p className="font-bold text-xl text-red-600 text-center">No items found for</p>
@@ -40,19 +40,23 @@ export default async function Crap({params, searchParams}) {
 						</div>
 					)}
 
-					{data && data.length > 0 && (
-						<div>
+					{data.length > 0 && (
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 							{data.map((item, index) => (
-								<div key={index}>
-									<h2>{item.title}</h2>
-									<p>{item.description}</p>
+								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
 											<Image src={imageUrl} alt={item.description} width={500} height={500} />
 										</div>
 									))}
-									<p>{item.status}</p>
-									<p>{item.owner.name}</p>
+									<div className="p-2">
+										<div className="flex justify-between pb-4 items-center">
+											<p className="font-bold">{item.title}</p>
+											<p className="text-normal bg-green-300 w-fit rounded-xl px-2">{item.status}</p>
+										</div>
+										<p className="italic">{item.description}</p>
+										<p>{item.owner.name}</p>
+									</div>
 								</div>
 							))}
 						</div>
