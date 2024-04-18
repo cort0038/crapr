@@ -3,19 +3,23 @@ import Image from "next/image"
 import SearchBar from "../components/SearchBar"
 
 export default async function Crap({searchParams}) {
-
 	try {
 		const session = await getSession()
 		const token = session?.value
 		const keyword = searchParams.keyword
 		const distance = searchParams.distance
 
-		const response = await fetch(`${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}&distance=${distance}`, {
-			method: "GET",
-			headers: {
-				Accept: "application/json"
+		console.log("keyword", keyword)
+
+		const response = await fetch(
+			`${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}&distance=${distance}`,
+			{
+				method: "GET",
+				headers: {
+					Accept: "application/json"
+				}
 			}
-		})
+		)
 
 		if (response.ok) {
 			const data = await response.json()
@@ -23,8 +27,7 @@ export default async function Crap({searchParams}) {
 			return (
 				<>
 					<SearchBar />
-
-					{data.length === 0 && (
+					{data.length === 0 ? (
 						<div className="flex flex-col items-center justify-center pt-16">
 							<div className="flex gap-1">
 								<p className="font-bold text-xl text-red-600 text-center">No items found for</p>
@@ -40,11 +43,9 @@ export default async function Crap({searchParams}) {
 								className="py-4"
 							/>
 						</div>
-					)}
-
-					{data.length > 0 && (
+					) : (
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-							{data.map((item, index) => (
+							{data.data.map((item, index) => (
 								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
@@ -69,20 +70,22 @@ export default async function Crap({searchParams}) {
 			return (
 				<>
 					<SearchBar />
-					<div className="flex flex-col justify-center items-center py-32 text-xl">
-						<h1 className="font-bold italic text-red-800">Something went wrong</h1>
-						<p>Try again later.</p>
+					<div className="flex flex-col pt-48">
+						<p className="font-bold text-xl text-red-600 text-center">Something went wrong</p>
+						<p className="text-center py-1">If you think this is a mistake, please try again later.</p>
 					</div>
 				</>
 			)
 		}
 	} catch (error) {
-		console.error(error)
 		return (
-			<div>
-				<h1>Something went wrong</h1>
-				<p>Try again later.</p>
-			</div>
+			<>
+				<SearchBar />
+				<div className="flex flex-col pt-48">
+					<p className="font-bold text-xl text-red-600 text-center">Something went wrong</p>
+					<p className="text-center py-1">If you think this is a mistake, please try again later.</p>
+				</div>
+			</>
 		)
 	}
 }

@@ -12,9 +12,6 @@ export default function SearchBar() {
 		setDistance(e.target.value)
 	}
 
-	console.log(search)
-	console.log(distance)
-
 	const handleSubmit = ev => {
 		ev.preventDefault()
 		router.push(`/crap?keyword=${search}&distance=${distance}`)
@@ -38,7 +35,6 @@ export default function SearchBar() {
 					onChange={e => {
 						setSearch(e.target.value)
 					}}
-					required
 				/>
 				<FaSearch className="text-xl cursor-pointer" onClick={handleSubmit} />
 			</div>
