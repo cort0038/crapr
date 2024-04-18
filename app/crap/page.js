@@ -3,12 +3,14 @@ import Image from "next/image"
 import SearchBar from "../components/SearchBar"
 
 export default async function Crap({searchParams}) {
+
 	try {
 		const session = await getSession()
 		const token = session?.value
 		const keyword = searchParams.keyword
+		const distance = searchParams.distance
 
-		const response = await fetch(`${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}`, {
+		const response = await fetch(`${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}&distance=${distance}`, {
 			method: "GET",
 			headers: {
 				Accept: "application/json"
