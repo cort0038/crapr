@@ -18,7 +18,7 @@ export default async function Mine() {
 			return (
 				<>
 					<SearchBar />
-					{data.length === 0 ? (
+					{data.data.length === 0 ? (
 						<div className="flex flex-col items-center justify-center pt-16">
 							<div className="flex gap-1">
 								<p className="font-bold text-xl text-red-600 text-center">You have not post anything yet.</p>
@@ -36,7 +36,10 @@ export default async function Mine() {
 					) : (
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 							{data.data.map((item, index) => (
-								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
+								<a
+									key={index}
+									className="flex flex-col border-2 border-black rounded-md gap-3 cursor-pointer"
+									href={`${process.env.ROOT_URL}/crap/${item._id}`}>
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
 											<Image src={imageUrl} alt={item.description} width={500} height={500} />
@@ -50,7 +53,7 @@ export default async function Mine() {
 										<p className="italic">{item.description}</p>
 										<p>{item.owner.name}</p>
 									</div>
-								</div>
+								</a>
 							))}
 						</div>
 					)}
