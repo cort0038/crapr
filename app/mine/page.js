@@ -1,11 +1,13 @@
 import {getSession} from "../actions"
 import Image from "next/image"
 import SearchBar from "../components/SearchBar"
+import {decodeToken} from "../actions"
 
 export default async function Mine() {
 	try {
 		const session = await getSession()
 		const token = session?.value
+		const userId = await decodeToken()
 
 		const response = await fetch(`${process.env.ROOT_URL}/api/mine?token=${token}`, {
 			method: "GET",
@@ -14,6 +16,7 @@ export default async function Mine() {
 			}
 		})
 		let data = await response.json()
+		
 		if (response.ok) {
 			return (
 				<>
