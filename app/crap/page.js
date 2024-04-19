@@ -93,17 +93,6 @@ export default async function Crap({searchParams}) {
 							))}
 						</div>
 					)}
-					
-				</>
-			)
-		} else {
-			return (
-				<>
-					<SearchBar />
-					<div className="flex flex-col pt-48">
-						<p className="font-bold text-xl text-red-600 text-center">Something went wrong</p>
-						<p className="text-center py-1">If you think this is a mistake, please try again later.</p>
-					</div>
 				</>
 			)
 		}
@@ -112,7 +101,7 @@ export default async function Crap({searchParams}) {
 			<>
 				<SearchBar />
 				<div className="flex flex-col pt-48">
-					<p className="font-bold text-xl text-red-600 text-center">Something went wrong</p>
+					<p className="font-bold text-xl text-red-600 text-center">Something went wrong: {error}</p>
 					<p className="text-center py-1">If you think this is a mistake, please try again later.</p>
 				</div>
 			</>
