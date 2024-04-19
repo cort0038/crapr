@@ -8,19 +8,14 @@ export default async function Crap({searchParams}) {
 		const token = session?.value
 		const keyword = searchParams.keyword
 		const distance = searchParams.distance
+		const url = `${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}&distance=${distance}`
 
-		console.log("keyword", keyword)
-		console.log("distance", distance)
-
-		const response = await fetch(
-			`${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}&distance=${distance}`,
-			{
-				method: "GET",
-				headers: {
-					Accept: "application/json"
-				}
+		const response = await fetch(url, {
+			method: "GET",
+			headers: {
+				Accept: "application/json"
 			}
-		)
+		})
 
 		if (response.ok) {
 			const data = await response.json()
@@ -52,7 +47,10 @@ export default async function Crap({searchParams}) {
 					{data.length !== 0 && keyword === "" && (
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 							{data.data.map((item, index) => (
-								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
+								<a
+									key={index}
+									className="flex flex-col border-2 border-black rounded-md gap-3 cursor-pointer"
+									href={`${process.env.ROOT_URL}/crap/${item._id}`}>
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
 											<Image src={imageUrl} alt={item.description} width={500} height={500} />
@@ -66,16 +64,19 @@ export default async function Crap({searchParams}) {
 										<p className="italic">{item.description}</p>
 										<p>{item.owner.name}</p>
 									</div>
-								</div>
+								</a>
 							))}
 						</div>
 					)}
 
-					{/* have data, have keyword --- show filter */}
+					{/* have data, have keyword --- show filtered */}
 					{data.length !== 0 && keyword !== "" && (
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 							{data.map((item, index) => (
-								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
+								<a
+									key={index}
+									className="flex flex-col border-2 border-black rounded-md gap-3 cursor-pointer"
+									href={`${process.env.ROOT_URL}/crap/${item._id}`}>
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
 											<Image src={imageUrl} alt={item.description} width={500} height={500} />
@@ -89,7 +90,7 @@ export default async function Crap({searchParams}) {
 										<p className="italic">{item.description}</p>
 										<p>{item.owner.name}</p>
 									</div>
-								</div>
+								</a>
 							))}
 						</div>
 					)}
