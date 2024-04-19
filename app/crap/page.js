@@ -1,9 +1,11 @@
 import {getSession} from "../actions"
 import Image from "next/image"
 import SearchBar from "../components/SearchBar"
+import {decodeToken} from "../actions"
 
 export default async function Crap({searchParams}) {
 	try {
+		const userId = await decodeToken()
 		const session = await getSession()
 		const token = session?.value
 		const keyword = searchParams.keyword
@@ -19,7 +21,6 @@ export default async function Crap({searchParams}) {
 
 		if (response.ok) {
 			const data = await response.json()
-			console.log("data", data)
 
 			return (
 				<>
@@ -85,7 +86,7 @@ export default async function Crap({searchParams}) {
 									<div className="p-2">
 										<div className="flex justify-between pb-4 items-center">
 											<p className="font-bold">{item.title}</p>
-											<p className="text-normal bg-green-300 w-fit rounded-xl px-2">{item.status}</p>
+											<p>{item.status}</p>
 										</div>
 										<p className="italic">{item.description}</p>
 										<p>{item.owner.name}</p>
