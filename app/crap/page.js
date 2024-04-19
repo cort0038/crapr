@@ -10,6 +10,7 @@ export default async function Crap({searchParams}) {
 		const distance = searchParams.distance
 
 		console.log("keyword", keyword)
+		console.log("distance", distance)
 
 		const response = await fetch(
 			`${process.env.ROOT_URL}/api/crap?keyword=${keyword}&token=${token}&distance=${distance}`,
@@ -23,11 +24,13 @@ export default async function Crap({searchParams}) {
 
 		if (response.ok) {
 			const data = await response.json()
+			console.log("data", data)
 
 			return (
 				<>
 					<SearchBar />
-					{data.length === 0 ? (
+					{/* no data -- 404 not found*/}
+					{data.length === 0 && (
 						<div className="flex flex-col items-center justify-center pt-16">
 							<div className="flex gap-1">
 								<p className="font-bold text-xl text-red-600 text-center">No items found for</p>
@@ -43,7 +46,10 @@ export default async function Crap({searchParams}) {
 								className="py-4"
 							/>
 						</div>
-					) : (
+					)}
+
+					{/* have data, no keyword --- show all */}
+					{data.length !== 0 && keyword === "" && (
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
 							{data.data.map((item, index) => (
 								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
@@ -64,6 +70,30 @@ export default async function Crap({searchParams}) {
 							))}
 						</div>
 					)}
+
+					{/* have data, have keyword --- show filter */}
+					{data.length !== 0 && keyword !== "" && (
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+							{data.map((item, index) => (
+								<div key={index} className="flex flex-col border-2 border-black rounded-md gap-3">
+									{item.images.map((imageUrl, imageIndex) => (
+										<div key={imageIndex}>
+											<Image src={imageUrl} alt={item.description} width={500} height={500} />
+										</div>
+									))}
+									<div className="p-2">
+										<div className="flex justify-between pb-4 items-center">
+											<p className="font-bold">{item.title}</p>
+											<p className="text-normal bg-green-300 w-fit rounded-xl px-2">{item.status}</p>
+										</div>
+										<p className="italic">{item.description}</p>
+										<p>{item.owner.name}</p>
+									</div>
+								</div>
+							))}
+						</div>
+					)}
+					
 				</>
 			)
 		} else {
