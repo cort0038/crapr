@@ -12,7 +12,6 @@ export async function GET(request) {
 			next: {revalidate: 60}
 		})
 
-		// console.log("TEST", response)
 
 		if (response.status === 200) {
 			let data = await response.json()

@@ -17,35 +17,53 @@ export async function login(response, token) {
 //get the form data and send it to the server
 export async function getFormData(formData) {
 	"use server"
+	try {
+		const title = formData.get("title")
+		const description = formData.get("description")
+		const image = formData.get("images")
+		const lat = process.env.LAT
+		const long = process.env.LONG
 
-	const title = formData.get("title")
-	const description = formData.get("description")
-	const image = formData.get("images")
+		const payload = new FormData()
 
-	const payload = new FormData()
+		payload.append("title", title)
+		payload.append("description", description)
+		payload.append("images", image)
+		payload.append("location[type]", "Point")
+		payload.append("location[coordinates][]", lat)
+		payload.append("location[coordinates][]", long)
 
-	payload.append("title", title)
-	payload.append("description", description)
-	payload.append("images", image)
+		let session = await getSession()
+		let token = session?.value
 
-	let session = await getSession()
-	let token = session?.value
+		const response = await fetch(`${process.env.ROOT_URL}/api/crap?token=${token}`, {
+			method: "POST",
+			headers: {
+				"Accept": "application/json"
+			},
+			body: payload
+		})
 
-	const response = await fetch(`${process.env.ROOT_URL}/api/crap?token=${token}`, {
-		method: "POST",
-		headers: {
-			"Accept": "application/json"
-		},
-		body: payload
-	})
-
-	if (response.status === 201) {
-		let data = await response.json()
-		console.log(data)
-	} else if (response.status === 401) {
-		console.warn("Unauthorized. Please, log in.")
-	} else {
-		console.error("Something went wrong")
+		if (response.ok) {
+			const data = await response.json()
+			console.log(data)
+			if (response.status === 201) {
+				return new Response(JSON.stringify(data), {
+					status: 201,
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+			}
+		}
+	} catch (error) {
+		console.error(error)
+		return new Response(JSON.stringify({error: "Something went wrong"}), {
+			status: 500,
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
 	}
 }
 
