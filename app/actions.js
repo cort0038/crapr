@@ -17,53 +17,43 @@ export async function login(response, token) {
 //get the form data and send it to the server
 export async function getFormData(formData) {
 	"use server"
-	try {
-		const title = formData.get("title")
-		const description = formData.get("description")
-		const image = formData.get("images")
-		const lat = process.env.LAT
-		const long = process.env.LONG
 
-		const payload = new FormData()
+	const title = formData.get("title")
+	const description = formData.get("description")
+	const image = formData.get("images")
+	const lat = process.env.LAT
+	const long = process.env.LONG
 
-		payload.append("title", title)
-		payload.append("description", description)
-		payload.append("images", image)
-		payload.append("location[type]", "Point")
-		payload.append("location[coordinates][]", lat)
-		payload.append("location[coordinates][]", long)
+	const payload = new FormData()
 
-		let session = await getSession()
-		let token = session?.value
+	payload.append("title", title)
+	payload.append("description", description)
+	payload.append("images", image)
+	payload.append("location[type]", "Point")
+	payload.append("location[coordinates][]", lat)
+	payload.append("location[coordinates][]", long)
 
-		const response = await fetch(`${process.env.ROOT_URL}/api/crap?token=${token}`, {
-			method: "POST",
-			headers: {
-				"Accept": "application/json"
-			},
-			body: payload
-		})
+	let session = await getSession()
+	let token = session?.value
 
-		if (response.ok) {
-			const data = await response.json()
+	const response = await fetch(`${process.env.ROOT_URL}/api/crap?token=${token}`, {
+		method: "POST",
+		headers: {
+			"Accept": "application/json"
+		},
+		body: payload
+	})
+
+	if (response.ok) {
+		const data = await response.json()
+
+		if (response.status === 201) {
 			console.log(data)
-			if (response.status === 201) {
-				return new Response(JSON.stringify(data), {
-					status: 201,
-					headers: {
-						"Content-Type": "application/json"
-					}
-				})
-			}
+		} else {
+			console.log(response.status, data)
 		}
-	} catch (error) {
-		console.error(error)
-		return new Response(JSON.stringify({error: "Something went wrong"}), {
-			status: 500,
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
+	} else {
+		console.error("HTTP-Error: " + response.status)
 	}
 }
 
