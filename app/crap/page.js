@@ -49,11 +49,17 @@ export default async function Crap({searchParams}) {
 							{data.data.map((item, index) => (
 								<a
 									key={index}
-									className="flex flex-col border-2 border-black rounded-md gap-3 cursor-pointer"
+									className="flex flex-col border-2 border-black rounded-md gap-3 cursor-pointer "
 									href={`${process.env.ROOT_URL}/crap/${item._id}`}>
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
-											<Image src={imageUrl} alt={item.description} width={500} height={500} />
+											<Image
+												src={imageUrl}
+												alt={item.description}
+												width={500}
+												height={500}
+												className="aspect-video object-cover"
+											/>
 										</div>
 									))}
 									<div className="p-2">
