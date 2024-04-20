@@ -15,9 +15,6 @@ export default async function Wishlist() {
 	let interested = await responseInterested.json()
 
 	if (responseInterested.ok) {
-		;<p className="mt-6 flex items-center justify-center text-xl font-bold border-y-2 bg-slate-100 rounded-md">
-			Wishlist
-		</p>
 		return (
 			<>
 				<p className="mt-6 flex items-center justify-center text-xl font-bold border-y-2 bg-slate-100 rounded-md">
@@ -34,7 +31,7 @@ export default async function Wishlist() {
 					</div>
 				) : (
 					<>
-						<div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-6">
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-3 py-6">
 							{interested.data.map((item, index) => (
 								<a
 									key={index}

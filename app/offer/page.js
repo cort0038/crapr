@@ -36,7 +36,7 @@ export default async function Offer() {
 						required
 					/>
 				</div>
-				<button name="button" className="bg-green-300 p-2 rounded-lg font-bold mt-4 w-1/2">
+				<button name="button" className="bg-blue-600 text-white p-2 rounded-lg font-bold mt-4 w-1/2">
 					Submit
 				</button>
 			</form>

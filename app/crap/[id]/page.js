@@ -97,25 +97,25 @@ export default async function crapId(params) {
 									)}
 								</a>
 
-								<form className="flex flex-col pt-8 gap-2">
+								<form className="flex flex-col items-center justify-center pt-8 gap-2 bg-slate-200 rounded-xl p-6 w-full md:w-1/2">
 									<p className="font-bold">Set your suggestions to meet:</p>
-									<div className="flex items-center gap-4">
+									<div className="flex flex-col w-full gap-1 text-center">
 										<label className="font-bold">Date</label>
-										<input type="date" className="border-2 border-slate-700 rounded-lg px-2 w-full" />
+										<input type="date" className="block w-full text-center border-2 border-black p-1 rounded-lg" />
 									</div>
-									<div className="flex items-center gap-4">
+									<div className="flex flex-col w-full gap-1 text-center">
 										<label className="font-bold">Time</label>
-										<input type="time" className="border-2 border-slate-700 rounded-lg px-2 w-full" />
+										<input type="time" className="block w-full text-center border-2 border-black p-1 rounded-lg" />
 									</div>
-									<div className="border-1 border-black rounded-lg">
+									<div className="flex flex-col w-full gap-1 text-center">
+										<label className="font-bold">Address</label>
 										<textarea
 											type="text"
-											placeholder="Address"
-											className="border-2 border-slate-700 rounded-lg px-2 w-full"
+											className="block w-full text-center border-2 border-black p-1 rounded-lg"
 										/>
 									</div>
 
-									<button className="bg-blue-600 text-white rounded-md px-3 py-1">Submit</button>
+									<button className="bg-blue-600 text-white p-2 rounded-lg font-bold mt-4 w-1/2">Submit</button>
 								</form>
 							</div>
 						</>
@@ -123,7 +123,7 @@ export default async function crapId(params) {
 
 					{data && data.data.status === "Interested" && data.data.buyer._id === userId && (
 						<>
-							<div className="flex items-center justify-center py-16 gap-12">
+							<div className="flex items-center justify-center py-16 flex-col md:flex-row gap-12">
 								<a className="flex flex-col border-2 border-black rounded-md gap-3">
 									<Image
 										src={data.data.images[0]}
