@@ -4,36 +4,36 @@ import {decodeToken} from "@/app/actions"
 import {revalidatePath} from "next/cache"
 
 export default async function crapId(params) {
-	async function showInterest() {
-		"use server"
-		const url2 = `${process.env.API_URL}/api/crap/${params.params.id}/interested`
-
-		const postResponse = await fetch(url2, {
-			method: "PATCH",
-			headers: {
-				Accept: "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({
-				status: "Interested"
-			}),
-			next: {revalidate: 60}
-		})
-
-		if (postResponse.ok) {
-			const postData = await postResponse.json()
-			const crapId = postData._id
-
-			if (postResponse.status === 200) {
-				revalidatePath(`/crap/${crapId}`)
-			}
-		}
-	}
-
 	try {
 		const session = await getSession()
 		const token = session?.value
 		const userId = await decodeToken()
+
+		async function showInterest() {
+			"use server"
+			const url2 = `${process.env.API_URL}/api/crap/${params.params.id}/interested`
+
+			const postResponse = await fetch(url2, {
+				method: "PATCH",
+				headers: {
+					Accept: "application/json",
+					Authorization: `Bearer ${token}`
+				},
+				body: JSON.stringify({
+					status: "Interested"
+				}),
+				next: {revalidate: 60}
+			})
+
+			if (postResponse.ok) {
+				const postData = await postResponse.json()
+				const crapId = postData._id
+
+				if (postResponse.status === 200) {
+					revalidatePath(`/crap/${crapId}`)
+				}
+			}
+		}
 
 		const url = `${process.env.API_URL}/api/crap/${params.params.id}`
 		const getResponse = await fetch(url, {
