@@ -3,7 +3,6 @@
 import {cookies} from "next/headers"
 import {NextResponse} from "next/server"
 import {redirect} from "next/navigation"
-import {revalidatePath} from "next/cache"
 
 //set the token in cookies from the query string
 export async function login(response, token) {
@@ -27,80 +26,6 @@ export async function decodeToken() {
 	return userId
 }
 
-// export async function showInterest() {
-// 	"use server"
-
-// 	let session = await getSession()
-// 	let token = session?.value
-
-// 	const response = await fetch(`${process.env.ROOT_URL}/api/mine?token=${token}&id=${id}`, {
-// 		method: "PATCH",
-// 		headers: {
-// 			"Accept": "application/json"
-// 		}
-// 	})
-
-// 	if (response.ok) {
-// 		const data = await response.json()
-// 		const crapId = data._id
-
-// 		if (response.status === 200) {
-// 			console.log(data)
-// 			revalidatePath(`/crap/${crapId}`)
-// 		}
-// 	} else {
-// 		return (
-// 			<div className="flex flex-col pt-48">
-// 				<p className="font-bold text-xl text-red-600 text-center">Something went wrong</p>
-// 				<p className="text-center py-1">If you think this is a mistake, please try again later.</p>
-// 			</div>
-// 		)
-// 	}
-// }
-
-// export async function getIdFromUrl(request) {
-// 	// const url = await request.nextUrl.pathname
-// 	// console.log(url)
-// 	// return url
-// 	const url = request.nextUrl
-// 	console.log(url) // For debugging purposes
-
-// 	// Example: Extract ID from URL path assuming the format is '/path/:id'
-// 	// const parts = url.split("/")
-// 	const id = parts[parts.length - 1] // Assuming the ID is the last part of the path
-
-// 	return id
-// }
-
-// export async function deleteCrap(id) {
-// 	"use server"
-
-// 	let session = await getSession()
-// 	let token = session?.value
-
-// 	const response = await fetch(`${process.env.ROOT_URL}/api/mine?token=${token}&id=${id}`, {
-// 		method: "DELETE",
-// 		headers: {
-// 			"Accept": "application/json"
-// 		}
-// 	})
-
-// 	if (response.ok) {
-// 		const data = await response.json()
-
-// 		if (response.status === 200) {
-// 			console.log(data)
-// 			redirect(`/mine`)
-// 		}
-// 	} else {
-// 		return (
-// 			<div className="flex flex-col pt-48">
-// 				<p className="font-bold text-xl text-red-600 text-center">Something went wrong</p>
-// 				<p className="text-center py-1">If you think this is a mistake, please try again later.</p>
-// 			</div>
-// 		)
-// 	}
-// }
 
 //get the form data and send it to the server
 export async function getFormData(formData) {
