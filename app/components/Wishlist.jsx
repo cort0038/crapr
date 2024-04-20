@@ -24,7 +24,7 @@ export default async function Wishlist() {
 					<div className="flex flex-col items-center justify-center py-16">
 						<div className="flex gap-1">
 							<p className="font-bold text-xl text-red-600 text-center">
-								You have not shown interested in any item.
+								You have not shown interest in any item.
 							</p>
 						</div>
 						<p className="text-center py-3">If you think this is a mistake, please try again later.</p>
