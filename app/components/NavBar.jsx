@@ -6,13 +6,13 @@ export default async function NavBar() {
 	let token = await getSession()
 
 	return (
-		<div className="flex justify-end">
+		<div className="flex">
 			{token?.value && (
 				<div className="flex items-center justify-between flex-col md:flex-row w-full pt-8 px-3 md:px-12">
 					<a className="font-bold text-3xl" href="/">
 						CRAP
 					</a>
-					<ul className="flex gap-4 py-2 justify-between font-bold md:text-lg items-center">
+					<ul className="flex gap-1 py-2 justify-between flex-col md:flex-row md:gap-4 font-bold md:text-lg items-center">
 						<li className="hover:text-green-700 transition-all">
 							<Link href="/">Home</Link>
 						</li>
@@ -28,7 +28,7 @@ export default async function NavBar() {
 						<li className="hover:text-green-700 transition-all">
 							<Link href="/wiped">Wiped</Link>
 						</li>
-						<li className="hover:text-white hover:bg-black transition-all border-2 border-black rounded-full p-2">
+						<li className="hover:text-white hover:bg-black transition-all border-2 border-black rounded-md md:rounded-full p-2">
 							<form
 								action={async () => {
 									"use server"
@@ -46,7 +46,7 @@ export default async function NavBar() {
 					<a className="font-bold text-3xl" href="/">
 						CRAP
 					</a>
-					<ul className="flex gap-4 py-2 justify-between font-bold md:text-lg items-center">
+					<ul className="flex gap-1 py-2 justify-between flex-col md:flex-row md:gap-4 font-bold md:text-lg items-center">
 						<li className="hover:text-green-700 transition-all">
 							<Link href="/">Home</Link>
 						</li>
