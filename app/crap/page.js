@@ -5,7 +5,6 @@ import {decodeToken} from "../actions"
 
 export default async function Crap({searchParams}) {
 	try {
-		const userId = await decodeToken()
 		const session = await getSession()
 		const token = session?.value
 		const keyword = searchParams.keyword
@@ -60,7 +59,20 @@ export default async function Crap({searchParams}) {
 									<div className="p-2">
 										<div className="flex justify-between pb-4 items-center">
 											<p className="font-bold">{item.title}</p>
-											<p className="text-normal bg-green-300 w-fit rounded-xl px-2">{item.status}</p>
+											<p
+												className={`text-normal ${
+													item.status === "Interested"
+														? "bg-blue-300"
+														: item.status === "Flushed"
+														? "bg-red-300"
+														: item.status === "Scheduled"
+														? "bg-orange-300"
+														: item.status === "Agreed"
+														? "bg-yellow-300"
+														: "bg-green-300"
+												} w-fit rounded-xl px-2`}>
+												{item.status}
+											</p>
 										</div>
 										<p className="italic">{item.description}</p>
 										<p>{item.owner.name}</p>

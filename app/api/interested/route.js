@@ -1,7 +1,7 @@
 export async function GET(request) {
 	try {
 		const token = request.nextUrl.searchParams.get("token")
-		let url = `${process.env.API_URL}/api/crap/mine`
+		let url = `${process.env.API_URL}/api/crap/interested`
 
 		const response = await fetch(url, {
 			method: "GET",
