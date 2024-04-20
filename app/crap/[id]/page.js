@@ -53,7 +53,13 @@ export default async function crapId(params) {
 						<>
 							<div className="flex items-center justify-center pt-16 gap-12">
 								<a className="flex flex-col border-2 border-black rounded-md gap-3">
-									<Image src={data.data.images[0]} alt={data.data.description} width={500} height={500} />
+									<Image
+										src={data.data.images[0]}
+										alt={data.data.description}
+										width={500}
+										height={500}
+										className="aspect-video object-cover"
+									/>
 
 									<div className="p-2">
 										<div className="flex justify-between pb-4 items-center">
@@ -106,7 +112,13 @@ export default async function crapId(params) {
 						<>
 							<div className="flex items-center justify-center pt-16 gap-12">
 								<a className="flex flex-col border-2 border-black rounded-md gap-3">
-									<Image src={data.data.images[0]} alt={data.data.description} width={500} height={500} />
+									<Image
+										src={data.data.images[0]}
+										alt={data.data.description}
+										width={500}
+										height={500}
+										className="aspect-video object-cover"
+									/>
 
 									<div className="p-2">
 										<div className="flex justify-between pb-4 items-center">
@@ -153,7 +165,13 @@ export default async function crapId(params) {
 						<>
 							<div className="flex items-center justify-center pt-16 gap-12">
 								<a className="flex flex-col border-2 border-black rounded-md gap-3">
-									<Image src={data.data.images[0]} alt={data.data.description} width={500} height={500} />
+									<Image
+										src={data.data.images[0]}
+										alt={data.data.description}
+										width={500}
+										height={500}
+										className="aspect-video object-cover"
+									/>
 
 									<div className="p-2">
 										<div className="flex justify-between pb-4 items-center">

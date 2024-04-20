@@ -1,7 +1,6 @@
 import {getSession} from "../actions"
 import Image from "next/image"
 import SearchBar from "../components/SearchBar"
-import {decodeToken} from "../actions"
 
 export default async function Crap({searchParams}) {
 	try {
@@ -38,7 +37,7 @@ export default async function Crap({searchParams}) {
 								alt="404 Error Image"
 								width={500}
 								height={500}
-								className="py-4"
+								className="py-4 "
 							/>
 						</div>
 					)}
@@ -98,7 +97,13 @@ export default async function Crap({searchParams}) {
 									href={`${process.env.ROOT_URL}/crap/${item._id}`}>
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
-											<Image src={imageUrl} alt={item.description} width={500} height={500} />
+											<Image
+												src={imageUrl}
+												alt={item.description}
+												width={500}
+												height={500}
+												className="aspect-video object-cover"
+											/>
 										</div>
 									))}
 									<div className="p-2">

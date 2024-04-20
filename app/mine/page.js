@@ -36,7 +36,7 @@ export default async function Mine() {
 								alt="404 Error Image"
 								width={500}
 								height={500}
-								className="py-4"
+								className="py-4 aspect-video object-cover"
 							/>
 						</div>
 					) : (
@@ -49,7 +49,13 @@ export default async function Mine() {
 										href={`${process.env.ROOT_URL}/crap/${item._id}`}>
 										{item.images.map((imageUrl, imageIndex) => (
 											<div key={imageIndex}>
-												<Image src={imageUrl} alt={item.description} width={500} height={500} />
+												<Image
+													src={imageUrl}
+													alt={item.description}
+													width={500}
+													height={500}
+													className="aspect-video object-cover"
+												/>
 											</div>
 										))}
 										<div className="p-2">

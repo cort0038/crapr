@@ -42,7 +42,13 @@ export default async function Wishlist() {
 									href={`${process.env.ROOT_URL}/crap/${item._id}`}>
 									{item.images.map((imageUrl, imageIndex) => (
 										<div key={imageIndex}>
-											<Image src={imageUrl} alt={item.description} width={500} height={500} />
+											<Image
+												src={imageUrl}
+												alt={item.description}
+												width={500}
+												height={500}
+												className="aspect-video object-cover"
+											/>
 										</div>
 									))}
 									<div className="p-2">
