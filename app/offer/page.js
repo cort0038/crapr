@@ -3,33 +3,42 @@ import {getFormData} from "../actions"
 export default async function Offer() {
 	try {
 		return (
-			<form id="myform" action={getFormData}>
-				<div className="flex gap-3">
-					<label>Title</label>
-					<input type="text" name="title" placeholder="title" className="border-2 border-black" required />
-				</div>
-				<div className="flex gap-3">
-					<label>Description</label>
+			<form
+				id="myform"
+				action={getFormData}
+				className="flex flex-col items-center justify-center mt-12 md:mt-12 p-6 bg-slate-200 rounded-xl md:w-1/2 mx-auto">
+				<div className="flex flex-col w-full gap-1 text-center">
+					<label className="font-bold">Title</label>
 					<input
 						type="text"
-						name="description"
-						placeholder="Description"
-						className="border-2 border-black"
+						name="title"
+						className="block w-full text-center border-2 border-black p-1 rounded-lg"
 						required
 					/>
 				</div>
-				<div className="flex gap-3">
-					<label>Image</label>
+				<div className="flex flex-col w-full gap-1 text-center">
+					<label className="font-bold">Description</label>
+					<textarea
+						type="text"
+						name="description"
+						className="block w-full text-center border-2 border-black p-1 rounded-lg"
+						required
+					/>
+				</div>
+				<div className="flex w-full flex-col gap-1 text-center">
+					<label className="font-bold">Image</label>
 					<input
 						name="images"
 						accept="image/*"
 						id="imageUpload"
 						type="file"
-						className="border-2 border-black"
+						className="block w-full bg-white text-center border-2 border-black px-1 rounded-lg"
 						required
 					/>
 				</div>
-				<button name="button">Submit</button>
+				<button name="button" className="bg-green-300 p-2 rounded-lg font-bold mt-4 w-1/2">
+					Submit
+				</button>
 			</form>
 		)
 	} catch (error) {

@@ -16,7 +16,6 @@ export default function RootLayout({children}) {
 			<body className={inter.className}>
 				<NavBar />
 				<main className="container">
-					{/* <Banner /> */}
 					{children}
 				</main>
 			</body>

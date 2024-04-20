@@ -51,7 +51,7 @@ export default async function crapId(params) {
 				<>
 					{data && data.data.status === "Interested" && data.data.owner._id === userId && (
 						<>
-							<div className="flex items-center justify-center pt-16 gap-12">
+							<div className="flex items-center flex-col md:flex-row justify-center py-16 gap-12">
 								<a className="flex flex-col border-2 border-black rounded-md gap-3">
 									<Image
 										src={data.data.images[0]}
@@ -64,7 +64,20 @@ export default async function crapId(params) {
 									<div className="p-2">
 										<div className="flex justify-between pb-4 items-center">
 											<p className="font-bold">{data.data.title}</p>
-											<p>{data.data.status}</p>
+											<p
+												className={`text-normal ${
+													data.data.status === "Interested"
+														? "bg-blue-300"
+														: data.data.status === "Flushed"
+														? "bg-red-300"
+														: data.data.status === "Scheduled"
+														? "bg-orange-300"
+														: data.data.status === "Agreed"
+														? "bg-yellow-300"
+														: "bg-green-300"
+												} w-fit rounded-xl px-2`}>
+												{data.data.status}
+											</p>
 										</div>
 										<div className="border-b-2 pt-2">
 											<p className="font-bold">Description</p>
@@ -108,9 +121,9 @@ export default async function crapId(params) {
 						</>
 					)}
 
-					{data && data.data.status === "Interested" && data.data.buyer._id == userId && (
+					{data && data.data.status === "Interested" && data.data.buyer._id === userId && (
 						<>
-							<div className="flex items-center justify-center pt-16 gap-12">
+							<div className="flex items-center justify-center py-16 gap-12">
 								<a className="flex flex-col border-2 border-black rounded-md gap-3">
 									<Image
 										src={data.data.images[0]}
@@ -163,7 +176,7 @@ export default async function crapId(params) {
 
 					{data && data.data.status === "Available" && (
 						<>
-							<div className="flex items-center justify-center pt-16 gap-12">
+							<div className="flex items-center justify-center py-16 gap-12">
 								<a className="flex flex-col border-2 border-black rounded-md gap-3">
 									<Image
 										src={data.data.images[0]}

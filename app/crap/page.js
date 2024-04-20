@@ -44,7 +44,7 @@ export default async function Crap({searchParams}) {
 
 					{/* have data, no keyword --- show all */}
 					{data.length !== 0 && keyword === "" && (
-						<div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-3 pb-12">
 							{data.data.map((item, index) => (
 								<a
 									key={index}
