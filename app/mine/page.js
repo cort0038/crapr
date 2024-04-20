@@ -21,8 +21,11 @@ export default async function Mine() {
 			return (
 				<>
 					<SearchBar />
+					<p className="mt-6 flex items-center justify-center text-xl font-bold border-y-2 bg-slate-100 rounded-md my-4">
+						Your Items
+					</p>
 					{mine.data.length === 0 ? (
-						<div className="flex flex-col items-center justify-center pt-16">
+						<div className="flex flex-col items-center justify-center py-16">
 							<div className="flex gap-1">
 								<p className="font-bold text-xl text-red-600 text-center">You have not post anything yet.</p>
 							</div>
